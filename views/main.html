@@ -2,24 +2,37 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' ;"
+    />
     <title>Stock Analysis</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="main.css" />
-    <script src="render.js" defer></script>
+    <script type="module" src="./renderer.js" defer></script>
   </head>
   <body>
-    <div class="block">
-      <input
-        class="input is-primary"
-        type="text"
-        placeholder="Primary input"
-        id="primary-input"
-      />
-      <button class="button is-primary" onclick="">Primary</button>
+    <div>
+      <div id="chatbot-result"></div>
     </div>
-    <div id="content-container" class="block"></div>
+    <div class="columns">
+      <div class="column is-four-fifths">
+        <textarea
+          class="textarea is-info"
+          type="text"
+          placeholder="Chat with the helper bot"
+          rows="2"
+          id="Search"
+        ></textarea>
+      </div>
+      <div class="column is-one-fifth is-flex is-align-items-center">
+        <button class="button is-dark" onclick="">Send</button>
+      </div>
+    </div>
+    <div id="chart-container"></div>
   </body>
 </html>

@@ -1,15 +1,20 @@
 import csv from "csv-parser";
 import axios from "axios";
-import { readFileSync } from "../utils/file_helper.mjs";
+import { readFileSync, writeFileSync } from "../utils/file_helper.mjs";
 import { Icons } from "../utils/icons.mjs";
 
 // -- node scripts/kite_connect/historical.mjs
 
-const startDate = '2024-01-01 09:15:00';
-const endDate = '2025-05-21 15:30:00';
-const defaultInterval = 'day';
+const startDate = "2024-01-01 09:15:00";
+const endDate = "2025-05-21 15:30:00";
+const defaultInterval = "day";
 
-export async function getHistoricalChartData(symbol, fromDate=startDate, toDate=endDate, interval=defaultInterval) {
+export async function getHistoricalChartData(
+  symbol,
+  fromDate = startDate,
+  toDate = endDate,
+  interval = defaultInterval
+) {
   const CREDS_STRING = readFileSync("savedcreds.json");
   const CREDS = JSON.parse(CREDS_STRING);
 
@@ -25,7 +30,11 @@ export async function getHistoricalChartData(symbol, fromDate=startDate, toDate=
     return;
   }
 
-  if(instrumentToken == undefined || instrumentToken == '' || instrumentToken == null) {
+  if (
+    instrumentToken == undefined ||
+    instrumentToken == "" ||
+    instrumentToken == null
+  ) {
     console.log(`${Icons.error}Could not find Instrument token for ${symbol}`);
   }
 
@@ -44,13 +53,15 @@ export async function getHistoricalChartData(symbol, fromDate=startDate, toDate=
     params,
   });
 
-  //- console.log('RESPONSE - ', response);
   const candles = response.data.data.candles;
-
-  console.log(`${Icons.success}Candles -`, candles)
+  processAndSaveInCSV(candles, symbol);
 }
 
-export async function getInstrumentToken(symbol, exchange = "NSE", type = "EQ") {
+export async function getInstrumentToken(
+  symbol,
+  exchange = "NSE",
+  type = "EQ"
+) {
   const response = await axios.get("https://api.kite.trade/instruments", {
     responseType: "stream",
   });
@@ -70,4 +81,22 @@ export async function getInstrumentToken(symbol, exchange = "NSE", type = "EQ") 
   });
 }
 
-getHistoricalChartData('INFY', startDate, endDate, interval);
+// -- array of candle data: [timestamp, open, high, low, close, volume]
+export function processAndSaveInCSV(data, symbol) {
+  let resultingCSV = "timestamp, open, high, low, close, volume\n";
+
+  if (!data || data?.length == 0)
+    return new Error(`${Icons.error}Data not found to convert to csv.`);
+
+  try {
+    data.forEach((row) => {
+      resultingCSV = resultingCSV.concat(row.join(), "\n");
+    });
+
+    writeFileSync(`data/${symbol}.csv`, resultingCSV);
+  } catch (error) {
+    throw new Error(`${Icons.error}Could not complete mapping data to csv format and write to file - ${error}`);
+  }
+}
+
+getHistoricalChartData("INFY");
