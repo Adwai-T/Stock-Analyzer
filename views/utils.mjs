@@ -1,7 +1,3 @@
-export function log() {
-  console.log('Log From view-utils');
-}
-
 export class Canvas {
   constructor(width, height) {
     this.width = width;
