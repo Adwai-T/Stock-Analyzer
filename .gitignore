@@ -3,3 +3,4 @@ node_modules
 temp_files
 loginInfo.json
 savedcreds.json
+data

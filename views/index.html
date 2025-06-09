@@ -4,35 +4,25 @@
     <meta charset="UTF-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' ;"
+      content="default-src 'self'; 
+           script-src 'self' https://cdn.jsdelivr.net https://cdn.plot.ly;  
+           style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
+           img-src 'self' data:"
     />
     <title>Stock Analysis</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdn.plot.ly/plotly-3.0.1.min.js"
+      charset="utf-8"
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <link rel="stylesheet" href="main.css" />
     <script type="module" src="./main.js" defer></script>
   </head>
   <body>
-    <div>
-      <div id="chatbot-result"></div>
-    </div>
-    <div class="columns">
-      <div class="column is-four-fifths">
-        <textarea
-          class="textarea is-info"
-          type="text"
-          placeholder="Chat with the helper bot"
-          rows="2"
-          id="Search"
-        ></textarea>
-      </div>
-      <div class="column is-one-fifth is-flex is-align-items-center">
-        <button class="button is-dark" onclick="">Send</button>
-      </div>
-    </div>
     <div id="chart-container"></div>
   </body>
 </html>

@@ -56,3 +56,17 @@ export async function appendFile(file, content) {
     console.error(`${Icons.error}There was an error writing file - ${error}`);
   }
 }
+
+export function parseCSVtoRows(csvString) {
+  //console.log('CSV String', csvString);
+  const lines = csvString.trim().split('\n');
+
+  return lines.map(line =>
+    line
+      .trim()
+      .split(',')
+      .map(value => value.trim())
+  );
+}
+
+

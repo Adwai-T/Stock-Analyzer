@@ -1,6 +1,9 @@
-import csv from "csv-parser";
 import axios from "axios";
-import { readFileSync, writeFileSync } from "../utils/file_helper.mjs";
+import {
+  readFileSync,
+  writeFileSync,
+  parseCSVtoRows,
+} from "../utils/file_helper.mjs";
 import { Icons } from "../utils/icons.mjs";
 
 // -- node scripts/kite_connect/historical.mjs
@@ -57,28 +60,33 @@ export async function getHistoricalChartData(
   processAndSaveInCSV(candles, symbol);
 }
 
+/**
+ * ['instrument_token','exchange_token','tradingsymbol',
+ * 'name','last_price','expiry','strike','tick_size',
+ * 'lot_size','instrument_type','segment','exchange']
+ * @param {string} symbol
+ * @param {string} exchange
+ * @param {string} type
+ * @returns
+ */
 export async function getInstrumentToken(
   symbol,
   exchange = "NSE",
   type = "EQ"
 ) {
   const response = await axios.get("https://api.kite.trade/instruments", {
-    responseType: "stream",
+    responseType: "text",
   });
-  return new Promise((resolve, reject) => {
-    response.data
-      .pipe(csv())
-      .on("data", (row) => {
-        if (
-          row.tradingsymbol === symbol &&
-          row.exchange === exchange &&
-          row.instrument_type === type
-        ) {
-          resolve(row.instrument_token);
-        }
-      })
-      .on("end", () => reject(new Error(`Symbol not found`)));
-  });
+  const rows = parseCSVtoRows(response.data);
+  for (let i = 0; i < rows.length; i++) {
+    if (
+      rows[i][2] === symbol &&
+      rows[i][11] === exchange &&
+      rows[i][9] === type
+    ) {
+      return rows[i][0];
+    }
+  }
 }
 
 // -- array of candle data: [timestamp, open, high, low, close, volume]
@@ -95,7 +103,9 @@ export function processAndSaveInCSV(data, symbol) {
 
     writeFileSync(`data/${symbol}.csv`, resultingCSV);
   } catch (error) {
-    throw new Error(`${Icons.error}Could not complete mapping data to csv format and write to file - ${error}`);
+    throw new Error(
+      `${Icons.error}Could not complete mapping data to csv format and write to file - ${error}`
+    );
   }
 }
 
