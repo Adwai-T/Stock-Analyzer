@@ -28,12 +28,12 @@ export function loadAndPrepareCSVData(filePath) {
     }
   }
   const features_data = extractFeatures(results);
-  const clear_data = removeRowsWithNaN(features_data);
+  const cleaned_data = removeRowsWithNaN(features_data);
   const features = ['open','high','low','close','volume',
     'sma20','ema20','rsi14','macd','macdSignal',
     'macdHist','bbUpper','bbMiddle','bbLower'];
 
-  return normalizeData(clear_data, features);
+  return normalizeData(cleaned_data, features);
 }
 
 //console.log(loadAndPrepareCSVData('data/INFY.csv'));
