@@ -3,8 +3,8 @@ import {
   readFileSync,
   writeFileSync,
   parseCSVtoRows,
-} from "../utils/file_helper.mjs";
-import { Icons } from "../utils/icons.mjs";
+} from "../../js_scripts/utils/file_helper.mjs";
+import { Icons } from "../../js_scripts/utils/icons.mjs";
 
 // -- node scripts/kite_connect/historical.mjs
 

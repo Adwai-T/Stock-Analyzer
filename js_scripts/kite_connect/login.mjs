@@ -3,9 +3,9 @@ import axios from 'axios';
 import http from 'http';
 import open from 'open';
 import { config } from "dotenv";
-import { appendToJSONFile } from '../utils/file_helper.mjs';
+import { appendToJSONFile } from '../../js_scripts/utils/file_helper.mjs';
 
-import { Icons } from '../utils/icons.mjs';
+import { Icons } from '../../js_scripts/utils/icons.mjs';
 
 // -- node scripts/kite_connect/login.mjs
 

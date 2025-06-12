@@ -1,7 +1,0 @@
-.block:not(:last-child) {
-  margin-bottom: 1.5rem;
-}
-
-body{
-  padding: 20px;
-}

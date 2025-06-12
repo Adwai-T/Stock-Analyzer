@@ -41,3 +41,18 @@ Python and nodejs are required to run the scripts present in the project.
 Python is not a compulsion and can be ignored if only running the express application.
 
 > Use npm install to install all the depencies for the app.
+
+## Python Training
+
+```py
+# install python version less than 3.11 preferabbly 3.10.9
+pip install Flask pandas numpy scikit-learn tensorflow keras
+npm install # (in the node_scripts directory, if your actual scripts have dependencies)
+
+pip uninstall tensorflow numpy pandas -y
+pip cache purge
+pip install numpy==1.24.3
+pip install tensorflow
+pip install Flask pandas scikit-learn joblib
+
+```

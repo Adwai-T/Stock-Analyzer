@@ -1,5 +1,5 @@
 import fs from "fs";
-import { parseCSVtoRows } from "../utils/file_helper.mjs";
+import { parseCSVtoRows, writeFileSync } from "../utils/file_helper.mjs";
 import {
   extractFeatures,
   normalizeData,
@@ -9,7 +9,7 @@ import {
 // -- node scripts/model_train/technicalAnalysis_prepareData.mjs
 
 // Main function to read and prepare CSV
-export function loadAndPrepareCSVData(filePath) {
+export function loadAndPrepareCSVData(filePath, company) {
   const results = [];
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const rows = parseCSVtoRows(fileContent);
@@ -33,7 +33,12 @@ export function loadAndPrepareCSVData(filePath) {
     'sma20','ema20','rsi14','macd','macdSignal',
     'macdHist','bbUpper','bbMiddle','bbLower'];
 
-  return normalizeData(cleaned_data, features);
+  const normalized_cleaned_data = normalizeData(cleaned_data, features);
+
+  writeFileSync(`data/${company}/${company}.json`,JSON.stringify(normalized_cleaned_data.normalized))
+  writeFileSync(`data/${company}/${company}_stats.json`,JSON.stringify(normalized_cleaned_data.stats))
+
+  return normalized_cleaned_data
 }
 
-//console.log(loadAndPrepareCSVData('data/INFY.csv'));
+// console.log(loadAndPrepareCSVData('data/INFY.csv'));
