@@ -88,8 +88,8 @@
 
         <!-- Login Section -->
         <div class="card p-6 flex flex-col items-center justify-center space-y-4">
-            <h2 class="text-2xl font-semibold text-gray-700">User Login</h2>
-            <button id="loginButton" class="btn btn-primary w-full md:w-auto">Login with Node.js</button>
+            <h2 class="text-2xl font-semibold text-gray-700">User Login to get Access Key</h2>
+            <button id="loginButton" class="btn btn-primary w-full md:w-auto">Login</button>
             <div id="loginMessage" class="message-box w-full text-center hidden"></div>
         </div>
 
@@ -224,6 +224,8 @@
 
         // Function to populate the historical data table
         function populateHistoricalDataTable(data) {
+            console.log('PopulateHistocialDataTable',data);
+            data = JSON.parse(data);
             const tableBody = document.getElementById('historicalDataTableBody');
             tableBody.innerHTML = ''; // Clear existing rows
 
@@ -234,7 +236,7 @@
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-gray-100';
                 tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${new Date(row.timestamp).toLocaleDateString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${new Date(row.date).toLocaleDateString()}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.open.toFixed(2)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.high.toFixed(2)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.low.toFixed(2)}</td>
