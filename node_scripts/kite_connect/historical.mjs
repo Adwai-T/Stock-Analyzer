@@ -3,21 +3,36 @@ import {
   readFileSync,
   writeFileSync,
   parseCSVtoRows,
-} from "../../js_scripts/utils/file_helper.mjs";
-import { Icons } from "../../js_scripts/utils/icons.mjs";
+} from "../utils/file_helper.mjs";
+import { formatDateForKiteString } from "../utils/helpers.mjs";
+import { Icons } from "../utils/icons.mjs";
 
-// -- node scripts/kite_connect/historical.mjs
+// -- node node_scripts/kite_connect/historical.mjs
 
-const startDate = "2024-01-01 09:15:00";
-const endDate = "2025-05-21 15:30:00";
-const defaultInterval = "day";
+// --  Get the company symbol from command-line arguments
+const args = process.argv.slice(2); // Skip the first two default args
+console.log("Received arguments:", args);
+
+let defaultStartDate = new Date();
+defaultStartDate.setFullYear(2020);
+let defaultEndDate = new Date();
+const symbol = args[0] ? args[0] : 'INFY';
+const startDateString = args[1] ? args[1] : formatDateForKiteString(defaultStartDate);
+const endDate = args[2] ? args[2] : formatDateForKiteString(defaultEndDate);
+const interval =  args[3] ? args[3] : "day"; // -- "day"
 
 export async function getHistoricalChartData(
   symbol,
-  fromDate = startDate,
-  toDate = endDate,
-  interval = defaultInterval
+  fromDate,
+  toDate,
+  interval
 ) {
+
+  if (args.length < 1) {
+    console.error("Missing arguments: symbol is required.");
+    process.exit(1); // Non-zero exit code signals failure
+  }
+
   const CREDS_STRING = readFileSync("savedcreds.json");
   const CREDS = JSON.parse(CREDS_STRING);
 
@@ -89,9 +104,9 @@ export async function getInstrumentToken(
   }
 }
 
-// -- array of candle data: [timestamp, open, high, low, close, volume]
+// -- array of candle data: [date,open,high,low,close,volume]
 export function processAndSaveInCSV(data, symbol) {
-  let resultingCSV = "timestamp, open, high, low, close, volume\n";
+  let resultingCSV = "date,open,high,low,close,volume\n";
 
   if (!data || data?.length == 0)
     return new Error(`${Icons.error}Data not found to convert to csv.`);
@@ -109,4 +124,4 @@ export function processAndSaveInCSV(data, symbol) {
   }
 }
 
-getHistoricalChartData("INFY");
+getHistoricalChartData(symbol, startDateString, endDate, interval);

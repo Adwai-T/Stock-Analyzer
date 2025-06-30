@@ -51,8 +51,7 @@ npm install # (in the node_scripts directory, if your actual scripts have depend
 
 pip uninstall tensorflow numpy pandas -y
 pip cache purge
-pip install numpy==1.24.3
-pip install tensorflow
-pip install Flask pandas scikit-learn joblib
+
+pip install tensorflow Flask pandas scikit-learn joblib
 
 ```
