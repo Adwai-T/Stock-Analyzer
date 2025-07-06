@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify
-from src.app_helper import getHistoricalData, loadAndProcessData
+from src.app_helper import getHistoricalData, loadAndProcessData, loadModelAndPredict
 
 # Import functions from newly created modules
 # from python_scripts.src.model_trainer import train_or_load_model, predict_next_day_close
@@ -63,6 +63,19 @@ def get_historical_data():
         return jsonify({'data': history_df.to_json(orient='records'), 'status': 'success'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': f'Error executing historical data script: {str(e)}'}), 500
+    
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    company_symbol = request.json.get('symbol')
+    print(company_symbol)
+    return jsonify({
+            'status': 'success',
+            'predicted_close_price':  float(loadModelAndPredict(company_symbol)),
+            'last_actual_close': 0,
+            'prediction_error_percentage': 0
+        })
+    return loadModelAndPredict(company_symbol)
 
 # @app.route('/predict', methods=['POST'])
 # def predict():

@@ -136,6 +136,7 @@
 
     <script>
         let fetchedHistoricalData = []; // Store fetched data for prediction
+        let symbol = 'INFY';
 
         // Helper function to display messages
         function showMessage(elementId, message, type) {
@@ -180,6 +181,7 @@
         // Get Historical Data Button Click Handler
         document.getElementById('getHistoricalDataButton').addEventListener('click', async () => {
             const companySymbol = document.getElementById('companySymbolInput').value.trim();
+            symbol = companySymbol
             hideMessage('historicalDataMessage');
             document.getElementById('historicalDataTableContainer').classList.add('hidden');
             document.getElementById('predictButton').disabled = true; // Disable predict until data is fetched
@@ -224,7 +226,7 @@
 
         // Function to populate the historical data table
         function populateHistoricalDataTable(data) {
-            console.log('PopulateHistocialDataTable',data);
+            //console.log('PopulateHistocialDataTable',data);
             data = JSON.parse(data);
             const tableBody = document.getElementById('historicalDataTableBody');
             tableBody.innerHTML = ''; // Clear existing rows
@@ -268,9 +270,11 @@
                 const response = await fetch('/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ historical_data: fetchedHistoricalData })
+                    body: JSON.stringify({ 'symbol': symbol })
                 });
                 const data = await response.json();
+
+                console.log('DATA - ', data)
 
                 if (data.status === 'success') {
                     document.getElementById('predictedClose').textContent = data.predicted_close_price;

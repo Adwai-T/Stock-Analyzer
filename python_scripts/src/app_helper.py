@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense, Dropout, LSTM
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 import tensorflow as tf
 import subprocess # to run node scripts
-import emotes
+from src import emotes 
 
 
 historicalDataScript = 'node_scripts/kite_connect/historical.mjs'
@@ -29,7 +29,7 @@ def getHistoricalData(symbol, start='', end='', interval='') :
     
 # Import historical data csv
 def loadAndProcessData(symbol) :
-    df = pd.read_csv(dataPath + symbol + '.csv', index_col=False)
+    df = pd.read_csv('data/' + symbol + '.csv', index_col=False)
     print(f'{emotes.check}Loaded data for {symbol}')
     print(df.head())
     return df
@@ -85,8 +85,25 @@ def train(symbol) :
     model.save(f'{symbol}_model.h5')
 
 def loadModelAndPredict(symbol) :
-    model_name = f'{symbol}_model.h5'
-    past_100_days = 
+    # Load and process data
+    data = loadAndProcessData(symbol)
+    model = load_model(f'./model/{symbol}_model.h5')
+
+    # Use the same scaler used during training
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    
+    close_data = data.iloc[:, 4:5].values  # 'close' column
+    scaled_data = scaler.fit_transform(close_data)
+
+    # Get the last 100 days for prediction
+    last_100_days = scaled_data[-100:]
+    input_data = np.array(last_100_days).reshape(1, 100, 1)
+
+    predicted_scaled = model.predict(input_data)
+    predicted_price = scaler.inverse_transform(predicted_scaled)
+
+    print(f"Predicted next close price for {symbol}: {predicted_price[0][0]}")
+    return predicted_price[0][0]
 
 
 
