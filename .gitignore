@@ -4,3 +4,6 @@ temp_files
 loginInfo.json
 savedcreds.json
 data
+.vscode
+*.exe
+a.exe
