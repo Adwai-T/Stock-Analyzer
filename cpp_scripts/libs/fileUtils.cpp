@@ -2,12 +2,6 @@
 #include <fstream>
 #include <iostream>
 
-std::vector<std::vector<std::string>> parseCSV(const std::string& filename, char delimiter) {
-    std::vector<std::vector<std::string>> data;
-
-    data = readFileLines(filename);
-}
-
 std::vector<std::string> readFileLines(const std::string &filename)
 {
   std::vector<std::string> lines;

@@ -4,19 +4,11 @@
 #include <vector>
 #include <iostream>
 
+#include "ML_Helper.h"
+
 // g++ cpp_scripts\libs\ML_Helper.cpp
 
-class Matrix
-{
-private:
-    //- data[i][j] would be i=row j=column
-    std::vector<std::vector<double>> data;
-    //- used for representing size of an object, number of elements
-    size_t rows, cols;
-
-public:
-    // Constructors
-    Matrix(size_t rows, size_t cols, bool isIdentity = false, bool isOnesMatrix = false)
+    Matrix::Matrix(size_t rows, size_t cols, bool isIdentity, bool isOnesMatrix)
     {
         this->rows = rows;
         this->cols = cols;
@@ -41,23 +33,23 @@ public:
             }
         }
     }
-    Matrix(const std::vector<std::vector<double>> &values)
+    Matrix::Matrix(const std::vector<std::vector<double>> &values)
     {
-        this->data = data;
+        this->data = values;
         this->rows = data.empty() ? 0 : data.size();
         this->cols = (data.empty() || data[0].empty()) ? 0 : data[0].size();
     }
 
-    size_t getRows()
+    size_t Matrix::getRows() const
     {
         return this->rows;
     }
-    size_t getCols()
+    size_t Matrix::getCols() const
     {
         return this->cols;
     }
 
-    Matrix getTranspose()
+    Matrix Matrix::getTranspose() const
     {
         Matrix transpose(this->cols, this->rows); // rows become cols
         for (size_t i = 0; i < this->rows; i++)
@@ -70,7 +62,7 @@ public:
         return transpose;
     }
 
-    Matrix getProduct(Matrix mat)
+    Matrix Matrix::getProduct(Matrix mat) const
     {
         if (this->cols != mat.rows)
         {
@@ -92,7 +84,7 @@ public:
     }
 
     // Debug / Utilities
-    void print() const
+    void Matrix::print() const
     {
         std::cout << "Matrix (" << rows << "x" << cols << "):\n";
         for (int i = 0; i < rows; ++i)
@@ -104,32 +96,3 @@ public:
             std::cout << std::endl;
         }
     };
-};
-
-int main()
-{
-    // Create a Matrix object with 3 rows and 4 columns
-    std::vector<std::vector<double>> vec1;
-    vec1[0] = std::vector<double>{1, 2, 3};
-    vec1[1] = std::vector<double>{3, 4, 5};
-    vec1[2] = std::vector<double>{4, 5, 6};
-
-    std::vector<std::vector<double>> vec2;
-    vec2[0] = std::vector<double>{2, 3};
-    vec2[1] = std::vector<double>{4, 5};
-    vec2[2] = std::vector<double>{7, 8};
-    Matrix mat1(vec1);
-    Matrix mat2(vec2);
-
-    // Print the matrix to verify its contents
-    mat1.print();
-    mat2.print();
-
-    Matrix mat = mat1.getTranspose();
-    mat1.print();
-
-    Matrix result = mat1.getProduct(mat2);
-    result.print();
-
-    return 0;
-}

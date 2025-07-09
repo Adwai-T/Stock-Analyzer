@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "ML_Helper.h"
+
 /**
  * y = w * x + b
  * x = input
@@ -28,6 +30,8 @@
  * Update rule	w -= α * ∂J/∂w; b -= α * ∂J/∂b	Training step
  *  */
 class LinearRegression{
-  public:
-    vector
-}
+private:
+  Matrix y;
+  Matrix x;
+  Matrix w;
+};

@@ -5,5 +5,5 @@ loginInfo.json
 savedcreds.json
 data
 .vscode
-*.exe
-a.exe
+**/*.exe
+build

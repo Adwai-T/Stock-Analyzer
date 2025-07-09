@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(FileUtilsExample)
+project(ML_Algorithms)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -7,7 +7,9 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(libs)
 
 # Add executable and source files
-add_executable(FileUtilsExample
+add_executable(ML_Algorithms
     main.cpp
-    libs/file_utils.cpp
+    libs/fileUtils.cpp
+    libs/ML_Helper.cpp
+    libs/Regression.cpp
 )
