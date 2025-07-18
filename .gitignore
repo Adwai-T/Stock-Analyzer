@@ -7,3 +7,6 @@ data
 .vscode
 **/*.exe
 build
+.idea
+out
+java.iml

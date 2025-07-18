@@ -1,7 +1,0 @@
-cd cpp_scripts/build
-
-cmake -G "MinGW Makefiles" .
-
-cmake --build .
-
-ML_Algorithms.exe
