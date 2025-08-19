@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Initial Setup I-->
+    <link rel="stylesheet" href="./common.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/danfojs@1.2.0/lib/bundle.min.js"></script>
+    <script src="./helper.js"></script>
+    <script src="./ML.js"></script>
+    <script src="./icons.js"></script>
+    <!--Initial End-->
+    <title>Technical Analysis</title>
+  </head>
+  <body>
+    <!--Spinner And Loader-->
+    <div class="overlay" id="spinner" hidden>
+      <div class="spinner">Loading...</div>
+    </div>
+
+    <!--Error Message-->
+    <div class="error-box" id="errorBox" hidden>
+      <span class="error-message" id="errorMessage">⚠️ Something went wrong!</span>
+      <button class="close-btn" onclick="document.getElementById('errorBox').hidden=true">✖</button>
+    </div>
+
+    <!--Headers and Links-->
+    <div id="header"></div>
+
+    <!--Content body-->
+    <div id="container flex center">
+      <div class="flex center">
+        <input type="text" id="input_symbol" placeholder="Symbol" />
+        <button class="btn-primary" id="fetch_historical_data">
+          Get
+        </button>
+      </div>
+
+      <div class="canvas-full-container">
+        <canvas id="historicalDataCanvas"></canvas>
+      </div>
+
+      <div class="canvas-full-container">
+        <canvas id="predictionCanvas"></canvas>
+      </div>
+    </div>
+
+    <!--Commons and Footer-->
+    <div id="footer"></div>
+    <script src="./index.js" type="module" defer></script>
+  </body>
+</html>
