@@ -5,8 +5,8 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder"
+    "start": "node node_scripts/main.js",
+    "dev": "nodemon node_scripts/main.js"
   },
   "build": {
     "appId": "com.adwaits.stockanalysis",
@@ -26,7 +26,11 @@
   "dependencies": {
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "open": "^10.1.2",
     "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

@@ -1,0 +1,231 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*Important so when hidden is present Elements are not rendered*/
+*[hidden] {
+  display: none !important;
+}
+
+html{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+  padding: 2rem;
+  max-width: 1280px;
+  min-width: 800px;
+  width: 100%; 
+}
+
+/* GRID */
+/* 
+grid-template-columns: 1fr 1fr; 
+
+*/
+.grid-container {
+  display: grid;
+  background-color: lightblue;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem; /* space between items */
+  padding: 1rem;
+}
+
+.grid-item {
+  background: grey;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.grid-make-2-column {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-make-3-column {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-make-5-column {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-span-middle {
+  grid-column: 2 / span 3; /* or grid-column: 2 / 5; */
+}
+
+.grid-span-left {
+  grid-column: 1 / span 4; /* Start at 1 span 4 */
+}
+
+.grid-span-right {
+  grid-column: 2 / span 4;
+}
+
+/* FLEX */
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* optional dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+
+.abolute-center {
+  position: fixed;      /* Stays in place even when scrolling */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Perfect centering */
+  z-index: 9999;        /* Keep it above everything else */
+}
+
+/* CANVAS - for charts */
+.canvas-medium-container{
+  width: 600px;
+}
+
+.canvas-full-container{
+  width: 100%;
+  border: 2px solid #357abd;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
+/* FORMS - Beautiful Input */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  min-width: 300px;
+  height: 2.5rem;
+  padding: 1rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+  outline: none;
+  margin: 0.4rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4193f1;
+  box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+}
+
+/* Label styling (optional) */
+label {
+  margin-bottom: 0.5rem;
+  display: inline;
+  font-weight: 500;
+}
+
+/* Button base */
+button {
+  padding: 0.6rem 0.8rem;
+  margin:0.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: #60a5f3;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #357abd;
+  transform: translateY(-1px);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent;
+  border: 2px solid #4a90e2;
+  color: #4a90e2;
+}
+
+.btn-outline:hover {
+  background: #4a90e2;
+  color: white;
+}
+
+/*ERROR MESSAGE*/
+.error-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #f44336; /* red background */
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10000;
+  animation: slideIn 0.3s ease-out;
+}
+
+.error-message {
+  flex-grow: 1;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ddd;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
