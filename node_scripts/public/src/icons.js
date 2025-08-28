@@ -1,4 +1,4 @@
-class Icons {
+export class Icons {
   static info = 'ℹ️';
   static success = '✅';
   static error = '❌';

@@ -1,4 +1,4 @@
-async function trainLSTMModel(stockDf) {
+export async function trainLSTMModel(stockDf) {
   const lookBack = 20;
 
   // 1. Normalize the data
@@ -47,14 +47,14 @@ async function trainLSTMModel(stockDf) {
   return { model, min, max };
 }
 
-async function loadAndTrain() {
+export async function loadAndTrain() {
   const df = await dfd.readCSV("your_stock_data.csv");  // make sure it has date, open, high, low, close, volume
   const { model, min, max } = await trainLSTMModel(df);
   
   // You can now use `model.predict(...)` to predict future prices.
 }
 
-function predictNext(model, recentData, min, max) {
+export function predictNext(model, recentData, min, max) {
   // Normalize recentData using previous min-max
   const norm = recentData.map((row, i) =>
     row.map((val, j) => {
