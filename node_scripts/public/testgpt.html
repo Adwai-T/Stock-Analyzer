@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockAI Analytics</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+  <style>
+    /* --- Dark Theme Variables --- */
+    :root {
+      --bg-color: #0f172a;        /* Deep navy */
+      --card-bg: #1e293b;         /* Slate blue/gray */
+      --text-color: #e2e8f0;      /* Light gray */
+      --subtext-color: #94a3b8;   /* Muted gray */
+      --accent-green: #10b981;    /* Emerald green */
+      --accent-red: #ef4444;      /* Red */
+      --accent-blue: #3b82f6;     /* Blue */
+      --accent-orange: #f59e0b;   /* Amber */
+      --accent-purple: #a855f7;   /* Purple */
+      --card-radius: 14px;
+    }
+
+    body {
+      background: var(--bg-color);
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text-color);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px; /* ✅ Consistent width */
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    header h2 {
+      margin: 0;
+      font-weight: 600;
+      color: var(--accent-blue);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: var(--accent-green);
+    }
+
+    .subtext {
+      font-size: 0.9em;
+      color: var(--subtext-color);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 6px;
+      background: #334155;
+      margin: 10px 0;
+      position: relative;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      background: var(--accent-green);
+      border-radius: 6px;
+      width: 80%;
+    }
+
+    .pure-button-primary {
+      background: var(--accent-blue);
+      border-radius: 8px;
+      padding: 8px 16px;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--subtext-color);
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h2>📊 StockAI Analytics</h2>
+      <span class="subtext">Last updated: 2 min ago 🟢</span>
+    </header>
+
+    <!-- Stock Search -->
+    <div class="card">
+      <form class="pure-form">
+        <fieldset>
+          <legend><b>Stock Analysis</b></legend>
+          <input type="text" value="AAPL">
+          <button type="submit" class="pure-button pure-button-primary">Analyze with ML</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- Top Stats -->
+    <div class="grid-4">
+      <div class="card">
+        <div class="subtext">Current Price</div>
+        <div class="highlight">$150.25</div>
+        <small style="color:var(--accent-green)">+2.45 (1.65%)</small>
+      </div>
+      <div class="card">
+        <div class="subtext">ML Prediction</div>
+        <div class="highlight">$155.80</div>
+        <small style="color:var(--accent-green)">+5.55 (3.69%)</small>
+      </div>
+      <div class="card">
+        <div class="subtext">Confidence</div>
+        <div class="highlight" style="color:var(--accent-orange)">87.3%</div>
+        <small style="color:var(--accent-orange)">High</small>
+      </div>
+      <div class="card">
+        <div class="subtext">Volume</div>
+        <div class="highlight">$2.4M</div>
+        <small class="subtext">Avg: 1.8M</small>
+      </div>
+    </div>
+
+    <!-- Charts Placeholder -->
+    <div class="grid-2">
+      <div class="card">
+        <h4>📈 Historical Price (2 Years)</h4>
+        <div class="bar"><span style="width: 70%"></span></div>
+        <p class="subtext">Chart placeholder - Historical price data</p>
+      </div>
+      <div class="card">
+        <h4>🤖 ML Predictions vs Actual</h4>
+        <div class="bar"><span style="width: 60%; background:var(--accent-blue)"></span></div>
+        <p class="subtext">Chart placeholder - ML predictions vs actual data</p>
+      </div>
+    </div>
+
+    <!-- Technical & Analysis -->
+    <div class="grid-3">
+      <div class="card">
+        <h4>📊 Technical Indicators</h4>
+        <p>RSI (14): <b style="color:var(--accent-orange)">67.3</b></p>
+        <p>MACD: <b style="color:var(--accent-green)">+1.24</b></p>
+        <p>MA (20): $148.52</p>
+        <p>MA (50): $145.87</p>
+      </div>
+      <div class="card">
+        <h4>📦 Volume Analysis</h4>
+        <p>Avg Volume (30d): <b>1.8M</b></p>
+        <p>Today's Volume: <b style="color:var(--accent-purple)">2.4M</b></p>
+        <p>Volume Ratio: <b style="color:var(--accent-purple)">1.33x</b></p>
+      </div>
+      <div class="card">
+        <h4>⚙️ Model Performance</h4>
+        <p>Prediction Accuracy: <b style="color:var(--accent-green)">87.3%</b></p>
+        <p>MSE: <b>0.024</b></p>
+        <p>RMSE: <b>0.155</b></p>
+        <p>Training Data: 80%</p>
+        <div class="bar"><span style="width:80%"></span></div>
+      </div>
+    </div>
+
+    <!-- Risk & Prediction -->
+    <div class="grid-2">
+      <div class="card">
+        <h4>🛡️ Risk Assessment</h4>
+        <p>Volatility: <b style="color:var(--accent-orange)">23.4%</b></p>
+        <p>Beta vs S&P500: <b>1.24</b></p>
+        <p>Sharpe Ratio: <b style="color:var(--accent-green)">1.43</b></p>
+        <p style="color:var(--accent-orange)"><b>MODERATE RISK</b> - Investment Grade</p>
+      </div>
+      <div class="card">
+        <h4>🎯 Prediction Confidence</h4>
+        <p><b>$155.80</b> (30-day target price)</p>
+        <p>Bull Case: <b style="color:var(--accent-green)">$168.50</b></p>
+        <p>Base Case: <b style="color:var(--accent-blue)">$155.80</b></p>
+        <p>Bear Case: <b style="color:var(--accent-red)">$142.20</b></p>
+      </div>
+    </div>
+
+    <footer>
+      StockAI Analytics Dashboard - Dark Mode UI (PureCSS, no JS)
+    </footer>
+  </div>
+</body>
+</html>

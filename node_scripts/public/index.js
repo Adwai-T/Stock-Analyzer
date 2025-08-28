@@ -47,39 +47,3 @@ const historicalDataEvent = document
 
 // -- EVENT Listerners END
 
-/**
- * Get fresh Historical Data from Kite
- * @returns
- */
-async function getHistoricalData(symbol = "INFY") {
-  const body = {
-    symbol: symbol,
-    startDateString: "2023-01-01",
-    endDateString: "2023-12-31",
-    interval: "day",
-  };
-
-  try {
-    const response = await fetch("http://localhost:3000/history", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      document.getElementById(
-        "csvOutput"
-      ).textContent = `❌ Error: ${error.error}`;
-      return;
-    }
-
-    return await response.text();
-  } catch (err) {
-    document.getElementById(
-      "csvOutput"
-    ).textContent = `❌ Network error: ${err.message}`;
-  }
-}
