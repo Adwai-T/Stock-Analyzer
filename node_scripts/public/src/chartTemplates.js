@@ -4,12 +4,12 @@
  * Bar data [{ c: 28.22, h: 28.52, l: 26.19, o: 27.3, x: 1756462695000 }]
  * @param {dataframe} df
  */
-export async function plotHistoricalData(df, symbol, historicalChart) {
+export async function plotHistoricalData(ctx, df, symbol, historicalChart) {
   if (historicalChart) {
     historicalChart.destroy();
   }
 
-  df.removeRowsAtIndex(0);
+  df.removeRowAtIndex(0);
 
   const candleData = df.data.map((row) => {
     return {
@@ -21,11 +21,6 @@ export async function plotHistoricalData(df, symbol, historicalChart) {
     };
   });
 
-  console.log(candleData);
-
-
-  const ctx = document.getElementById("historicalDataCanvas").getContext("2d");
-
   let historicalChartDrawn = new Chart(ctx, {
     type: "candlestick",
     data: {
@@ -34,30 +29,24 @@ export async function plotHistoricalData(df, symbol, historicalChart) {
           label: `CHRT - ${symbol}`,
           data: candleData,
         },
-        // {
-        //   label: "Close price",
-        //   type: "line",
-        //   data: lineData,
-        //   hidden: true,
-        // },
       ],
     },
     options: {
-    plugins: {
-      title: {
-        display: true,
-        text: `Historical Chart - ${symbol}`, // your chart title
-        font: {
-          size: 18,
-          weight: "bold"
+      plugins: {
+        title: {
+          display: true,
+          text: `Historical Chart - ${symbol}`, // your chart title
+          font: {
+            size: 18,
+            weight: "bold",
+          },
+          padding: {
+            top: 10,
+            bottom: 30,
+          },
         },
-        padding: {
-          top: 10,
-          bottom: 30
-        }
       }
-    }
-  }
+    },
   });
 
   return historicalChartDrawn;
